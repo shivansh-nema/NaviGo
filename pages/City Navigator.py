@@ -77,10 +77,13 @@ selected_state = st.selectbox("Choose a state:", states, index=0)
 cities = get_cities(selected_country, selected_state)
 selected_city = st.selectbox("Choose a city:", cities, index=0)
 
-API_KEY = "cb7c82c1f2134fe3bc6ac35ce45d735d"
+headers = {
+    "authorization": st.secrets["NAVIGATION_API_KEY"],
+    "content-type": "application/json"
+}
 
 def get_coordinates(city):
-    url = f"https://api.geoapify.com/v1/geocode/search?text={city}&apiKey={API_KEY}"
+    url = f"https://api.geoapify.com/v1/geocode/search?text={city}&apiKey={NAVIGATION_API_KEY}"
     response = requests.get(url)
     data = response.json()
     
@@ -95,7 +98,7 @@ def get_places(lat, lon, category):
     if lat is None or lon is None:
         return []
 
-    url = f"https://api.geoapify.com/v2/places?categories={category}&lat={lat}&lon={lon}&radius=5000&limit=10&apiKey={API_KEY}"
+    url = f"https://api.geoapify.com/v2/places?categories={category}&lat={lat}&lon={lon}&radius=5000&limit=10&apiKey={NAVIGATION_API_KEY}"
     response = requests.get(url)
     data = response.json()
         

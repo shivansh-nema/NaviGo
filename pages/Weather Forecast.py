@@ -75,10 +75,13 @@ selected_state = st.selectbox("Choose a state:", states, index=0)
 cities = get_cities(selected_country, selected_state)
 selected_city = st.selectbox("Choose a city:", cities, index=0)
 
-API_KEY = "faada62629554d8c86c52b6727d12b75"
+headers = {
+    "authorization": st.secrets["WEATHER_API_KEY"],
+    "content-type": "application/json"
+}
 
 def get_weather(city):
-    url = f"https://api.weatherbit.io/v2.0/current?city={city}&key={API_KEY}"
+    url = f"https://api.weatherbit.io/v2.0/current?city={city}&key={WEATHER_API_KEY}"
     response = requests.get(url)
     data = response.json()
 

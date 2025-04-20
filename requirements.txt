@@ -1,0 +1,8 @@
+streamlit
+PyPDF2
+langchain
+langchain-community
+faiss-cpu
+langchain-google-genai
+requests
+streamlit-option-menu

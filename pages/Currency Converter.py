@@ -30,8 +30,11 @@ page_bg_img = """
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
-API_KEY = "eee0d050b3328859b4b81b7e"
-BASE_URL = f"https://v6.exchangerate-api.com/v6/{API_KEY}/latest/"
+headers = {
+    "authorization": st.secrets["CURRENCY_API_KEY"],
+    "content-type": "application/json"
+}
+BASE_URL = f"https://v6.exchangerate-api.com/v6/{CURRENCY_API_KEY}/latest/"
 
 def get_exchange_rates(base_currency):
     url = BASE_URL + base_currency
