@@ -6,15 +6,16 @@ from langchain.vectorstores import FAISS
 from langchain.chains.question_answering import load_qa_chain
 from langchain_google_genai import ChatGoogleGenerativeAI
 
+ai_api_key = st.secrets["AI_API_KEY"]
 headers = {
-    "authorization": st.secrets["AI_API_KEY"],
+    "authorization": ai_api_key,
     "content-type": "application/json"
 }
 model_name = "gemini-2.0-flash"
 project_id = "323423126135" 
 
 st.set_page_config(
-    page_title="Navigo",
+    page_title="NaviGo",
     page_icon="Navigo_Icon.png",
 )
 
@@ -59,7 +60,7 @@ text_splitter = RecursiveCharacterTextSplitter(
     )
 chunks = text_splitter.split_text(text)
 
-embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001", google_api_key=AI_API_KEY)
+embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001", google_api_key=ai_api_key)
 
 vector_store = FAISS.from_texts(chunks, embeddings)
 
@@ -69,7 +70,7 @@ if user_question:
     match = vector_store.similarity_search(user_question)
 
     llm = ChatGoogleGenerativeAI(
-        api_key=AI_API_KEY,
+        api_key=ai_api_key,
         temperature=1,
         max_tokens=1000,
         model= model_name,

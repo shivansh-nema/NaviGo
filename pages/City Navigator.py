@@ -4,7 +4,7 @@ from streamlit_option_menu import option_menu
 from requests.structures import CaseInsensitiveDict
 
 st.set_page_config(
-    page_title="Navigo",
+    page_title="NaviGo",
     page_icon="Navigo_Icon.png",
 )
 
@@ -40,7 +40,7 @@ def get_countries():
     if response.status_code == 200:
         data = response.json()
         countries = sorted([country["name"]["common"] for country in data])
-        return ["Select a country..."] + countries  # Add placeholder at the top
+        return ["Select a country..."] + countries
     else:
         return ["Error fetching countries"]
     
@@ -77,13 +77,14 @@ selected_state = st.selectbox("Choose a state:", states, index=0)
 cities = get_cities(selected_country, selected_state)
 selected_city = st.selectbox("Choose a city:", cities, index=0)
 
+navigation_api_key = st.secrets["NAVIGATION_API_KEY"]
 headers = {
-    "authorization": st.secrets["NAVIGATION_API_KEY"],
+    "authorization": navigation_api_key,
     "content-type": "application/json"
 }
 
 def get_coordinates(city):
-    url = f"https://api.geoapify.com/v1/geocode/search?text={city}&apiKey={NAVIGATION_API_KEY}"
+    url = f"https://api.geoapify.com/v1/geocode/search?text={city}&apiKey={navigation_api_key}"
     response = requests.get(url)
     data = response.json()
     
@@ -98,7 +99,7 @@ def get_places(lat, lon, category):
     if lat is None or lon is None:
         return []
 
-    url = f"https://api.geoapify.com/v2/places?categories={category}&lat={lat}&lon={lon}&radius=5000&limit=10&apiKey={NAVIGATION_API_KEY}"
+    url = f"https://api.geoapify.com/v2/places?categories={category}&lat={lat}&lon={lon}&radius=5000&limit=10&apiKey={navigation_api_key}"
     response = requests.get(url)
     data = response.json()
         

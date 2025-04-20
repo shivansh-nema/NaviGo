@@ -1,7 +1,7 @@
 import streamlit as st
 
 st.set_page_config(
-    page_title="Navigo",
+    page_title="NaviGo",
     page_icon="Navigo_Icon.png",
     layout="wide"
 )

@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 st.set_page_config(
-    page_title="Navigo",
+    page_title="NaviGo",
     page_icon="Navigo_Icon.png",
 )
 
@@ -30,11 +30,12 @@ page_bg_img = """
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
+currency_api_key = st.secrets["CURRENCY_API_KEY"]
 headers = {
-    "authorization": st.secrets["CURRENCY_API_KEY"],
+    "authorization": currency_api_key,
     "content-type": "application/json"
 }
-BASE_URL = f"https://v6.exchangerate-api.com/v6/{CURRENCY_API_KEY}/latest/"
+BASE_URL = f"https://v6.exchangerate-api.com/v6/{currency_api_key}/latest/"
 
 def get_exchange_rates(base_currency):
     url = BASE_URL + base_currency
