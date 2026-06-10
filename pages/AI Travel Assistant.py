@@ -45,9 +45,7 @@ st.markdown(page_bg_img, unsafe_allow_html=True)
 
 st.title("AI Travel Assistant")
 
-file = "D:\Desktop\Coding\Python\MyProject\Detailed_Travel_Essentials_Guide.pdf"
-
-pdf_Reader = PdfReader(file)
+pdf_Reader = PdfReader("Detailed_Travel_Essentials_Guide.pdf")
 text = ""
 for page in pdf_Reader.pages:
     text += page.extract_text()
